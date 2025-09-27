@@ -4,6 +4,9 @@ import '../../config/routes.dart';
 import '../../config/theme.dart';
 import '../../providers/expense_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../expenses/expenses_screen.dart';
+import '../analytics/analytics_screen.dart';
+import '../settings/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,9 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _selectedIndex,
         children: const [
           _DashboardTab(),
-          _ExpensesTab(),
-          _AnalyticsTab(),
-          _SettingsTab(),
+          ExpensesScreen(),
+          AnalyticsScreen(),
+          SettingsScreen(),
         ],
       ),
       floatingActionButton: _selectedIndex == 0 || _selectedIndex == 1
@@ -336,30 +339,3 @@ class _RecentExpensesCard extends StatelessWidget {
   }
 }
 
-// Placeholder tabs
-class _ExpensesTab extends StatelessWidget {
-  const _ExpensesTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Expenses Tab - Coming Soon'));
-  }
-}
-
-class _AnalyticsTab extends StatelessWidget {
-  const _AnalyticsTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Analytics Tab - Coming Soon'));
-  }
-}
-
-class _SettingsTab extends StatelessWidget {
-  const _SettingsTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Settings Tab - Coming Soon'));
-  }
-}
