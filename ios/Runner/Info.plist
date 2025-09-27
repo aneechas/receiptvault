@@ -45,5 +45,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>ReceiptVault needs camera access to scan receipts and capture expense images.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>ReceiptVault needs photo library access to select receipt images for expense tracking.</string>
 </dict>
 </plist>
