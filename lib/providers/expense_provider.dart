@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import '../models/expense.dart';
-import '../models/category.dart';
+import '../models/category.dart' as models;
 import '../services/database_service.dart';
 
 class ExpenseProvider with ChangeNotifier {
   final DatabaseService _databaseService;
 
   List<Expense> _expenses = [];
-  List<Category> _categories = [];
+  List<models.Category> _categories = [];
   bool _isLoading = false;
   String? _error;
 
@@ -22,7 +22,7 @@ class ExpenseProvider with ChangeNotifier {
 
   // Getters
   List<Expense> get expenses => _expenses;
-  List<Category> get categories => _categories;
+  List<models.Category> get categories => _categories;
   bool get isLoading => _isLoading;
   String? get error => _error;
   String? get selectedCategory => _selectedCategory;

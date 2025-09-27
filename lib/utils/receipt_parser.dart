@@ -3,27 +3,27 @@ import 'package:intl/intl.dart';
 class ReceiptParser {
   // Common receipt patterns
   final List<RegExp> _amountPatterns = [
-    RegExp(r'(?:TOTAL|Total|total)[\s:]*£?(\d+\.?\d{0,2})', multiLine: true),
-    RegExp(r'(?:AMOUNT|Amount)[\s:]*£?(\d+\.?\d{0,2})', multiLine: true),
-    RegExp(r'(?:SUBTOTAL|Subtotal)[\s:]*£?(\d+\.?\d{0,2})', multiLine: true),
-    RegExp(r'£(\d+\.?\d{0,2})', multiLine: true),
-    RegExp(r'(\d+\.\d{2})[\s]*GBP', multiLine: true),
-    RegExp(r'(\d+\.\d{2})[\s]*£', multiLine: true),
+    RegExp(r'(?:TOTAL|Total|total)[\s:]*£?(\d+\.?\d{0,2})', dotAll: true),
+    RegExp(r'(?:AMOUNT|Amount)[\s:]*£?(\d+\.?\d{0,2})', dotAll: true),
+    RegExp(r'(?:SUBTOTAL|Subtotal)[\s:]*£?(\d+\.?\d{0,2})', dotAll: true),
+    RegExp(r'£(\d+\.?\d{0,2})', dotAll: true),
+    RegExp(r'(\d+\.\d{2})[\s]*GBP', dotAll: true),
+    RegExp(r'(\d+\.\d{2})[\s]*£', dotAll: true),
   ];
 
   final List<RegExp> _datePatterns = [
-    RegExp(r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})', multiLine: true),
-    RegExp(r'(\d{4}[/-]\d{1,2}[/-]\d{1,2})', multiLine: true),
-    RegExp(r'(\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{2,4})', multiLine: true, caseSensitive: false),
+    RegExp(r'(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})', dotAll: true),
+    RegExp(r'(\d{4}[/-]\d{1,2}[/-]\d{1,2})', dotAll: true),
+    RegExp(r'(\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{2,4})', caseSensitive: false, dotAll: true),
   ];
 
   final List<RegExp> _timePatterns = [
-    RegExp(r'(\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?)', multiLine: true, caseSensitive: false),
+    RegExp(r'(\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?)', caseSensitive: false, dotAll: true),
   ];
 
   final List<RegExp> _merchantPatterns = [
-    RegExp(r'^([A-Z][A-Za-z\s&\']+)(?:\n|$)', multiLine: true),
-    RegExp(r'(?:FROM|From|Merchant|MERCHANT)[\s:]*([A-Za-z\s&\']+)', multiLine: true),
+    RegExp(r'^([A-Z][A-Za-z\s&\']+)(?:\n|$)', dotAll: true),
+    RegExp(r'(?:FROM|From|Merchant|MERCHANT)[\s:]*([A-Za-z\s&\']+)', dotAll: true),
   ];
 
   final List<String> _commonMerchants = [
@@ -186,7 +186,7 @@ class ReceiptParser {
     List<Map<String, dynamic>> items = [];
     
     // Pattern for item lines (item name followed by price)
-    final itemPattern = RegExp(r'([A-Za-z\s]+)[\s\.\-]*£?(\d+\.\d{2})', multiLine: true);
+    final itemPattern = RegExp(r'([A-Za-z\s]+)[\s\.\-]*£?(\d+\.\d{2})', dotAll: true);
     final matches = itemPattern.allMatches(text);
     
     for (Match match in matches) {
@@ -284,7 +284,7 @@ class ReceiptParser {
 
   double? _extractTaxAmount(String text) {
     // Pattern for tax/VAT amounts
-    final taxPattern = RegExp(r'(?:TAX|VAT|GST)[\s:]*£?(\d+\.?\d{0,2})', multiLine: true, caseSensitive: false);
+    final taxPattern = RegExp(r'(?:TAX|VAT|GST)[\s:]*£?(\d+\.?\d{0,2})', caseSensitive: false, dotAll: true);
     final match = taxPattern.firstMatch(text);
     
     if (match != null && match.group(1) != null) {
