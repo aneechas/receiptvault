@@ -39,9 +39,8 @@ class AppRoutes {
       case camera:
         return MaterialPageRoute(builder: (_) => const CameraScreen());
       case review:
-        final args = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute(
-          builder: (_) => ReviewScreen(imageData: args?['imageData']),
+          builder: (_) => const ReviewScreen(),
         );
       case expenses:
         return MaterialPageRoute(builder: (_) => const ExpensesScreen());
@@ -52,7 +51,7 @@ class AppRoutes {
         );
       case analytics:
         return MaterialPageRoute(builder: (_) => const AnalyticsScreen());
-      case settings:
+      case AppRoutes.settings:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
       default:
         return MaterialPageRoute(

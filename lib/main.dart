@@ -12,18 +12,16 @@ import 'services/database_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Set preferred orientations
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  
-  // Initialize services
+
   final prefs = await SharedPreferences.getInstance();
   final databaseService = DatabaseService();
   await databaseService.initialize();
-  
+
   runApp(
     ReceiptVaultApp(
       prefs: prefs,

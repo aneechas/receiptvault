@@ -3,7 +3,7 @@ import '../models/expense.dart';
 
 class AIService {
   late final GenerativeModel _model;
-  static const String _apiKey = 'YOUR_GEMINI_API_KEY_HERE';
+  static const String _apiKey = 'AIzaSyBjseyiVtMOBMfA54wV7sQxFMvRZOJaYJw';
 
   AIService() {
     _model = GenerativeModel(

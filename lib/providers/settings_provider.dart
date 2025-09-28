@@ -19,6 +19,7 @@ class SettingsProvider with ChangeNotifier {
   // Notification settings
   bool _notificationsEnabled = true;
   bool _budgetAlertsEnabled = true;
+  bool _receiptRemindersEnabled = true;
 
   // App settings
   bool _biometricEnabled = false;
@@ -30,7 +31,9 @@ class SettingsProvider with ChangeNotifier {
   bool get isDarkMode => _isDarkMode;
   String get currency => _currency;
   bool get notificationsEnabled => _notificationsEnabled;
+  bool get budgetAlerts => _budgetAlertsEnabled;
   bool get budgetAlertsEnabled => _budgetAlertsEnabled;
+  bool get receiptReminders => _receiptRemindersEnabled;
   bool get biometricEnabled => _biometricEnabled;
   String get language => _language;
   bool get autoBackup => _autoBackup;
@@ -57,6 +60,7 @@ class SettingsProvider with ChangeNotifier {
     _currency = _prefs.getString(AppConstants.currencyKey) ?? 'GBP';
     _notificationsEnabled = _prefs.getBool('notificationsEnabled') ?? true;
     _budgetAlertsEnabled = _prefs.getBool('budgetAlertsEnabled') ?? true;
+    _receiptRemindersEnabled = _prefs.getBool('receiptRemindersEnabled') ?? true;
     _biometricEnabled = _prefs.getBool('biometricEnabled') ?? false;
     _language = _prefs.getString('language') ?? 'en';
     _autoBackup = _prefs.getBool('autoBackup') ?? true;
@@ -117,6 +121,13 @@ class SettingsProvider with ChangeNotifier {
   Future<void> toggleBudgetAlerts(bool enabled) async {
     _budgetAlertsEnabled = enabled;
     await _prefs.setBool('budgetAlertsEnabled', enabled);
+    notifyListeners();
+  }
+
+  // Toggle receipt reminders
+  Future<void> toggleReceiptReminders(bool enabled) async {
+    _receiptRemindersEnabled = enabled;
+    await _prefs.setBool('receiptRemindersEnabled', enabled);
     notifyListeners();
   }
 

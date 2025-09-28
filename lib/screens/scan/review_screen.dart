@@ -115,9 +115,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
         category: _selectedCategory,
         date: DateTime.tryParse(_dateController.text) ?? DateTime.now(),
         merchant: _merchantController.text,
-        notes: _notesController.text,
-        receiptImagePath: _imagePath,
-        currency: '£',
+        description: _notesController.text,
+        receiptPath: _imagePath,
+        currency: 'GBP',
         tags: [_selectedCategory],
       );
 
@@ -158,7 +158,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.backgroundColor(context),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Review Receipt'),
         actions: [
@@ -335,19 +335,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             border: OutlineInputBorder(),
                           ),
                           items: AppConstants.defaultCategories.map((category) {
-                            return DropdownMenuItem(
-                              value: category['name'],
+                            return DropdownMenuItem<String>(
+                              value: category,
                               child: Row(
                                 children: [
-                                  Icon(
-                                    IconData(
-                                      category['icon'] as int,
-                                      fontFamily: 'MaterialIcons',
-                                    ),
-                                    size: 20,
-                                  ),
+                                  Text(AppConstants.categoryIcons[category] ?? '📌'),
                                   const SizedBox(width: 12),
-                                  Text(category['name'] as String),
+                                  Text(category),
                                 ],
                               ),
                             );

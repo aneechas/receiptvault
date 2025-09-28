@@ -76,7 +76,7 @@ class _ProfileSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  user?.name ?? 'Guest User',
+                  user?.displayName ?? 'Guest User',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -168,18 +168,17 @@ class _CurrencyCard extends StatelessWidget {
       context: context,
       builder: (context) => ListView(
         shrinkWrap: true,
-        children: AppConstants.supportedCurrencies.entries.map((entry) {
-          final isSelected = provider.currency == entry.key;
+        children: AppConstants.supportedCurrencies.map((currency) {
+          final isSelected = provider.currency == currency;
           return ListTile(
             leading: Icon(
               Icons.radio_button_checked,
               color: isSelected ? AppTheme.primaryColor : Colors.grey[300],
             ),
-            title: Text(entry.key),
-            subtitle: Text(entry.value),
+            title: Text(currency),
             selected: isSelected,
             onTap: () {
-              provider.setCurrency(entry.key);
+              provider.setCurrency(currency);
               Navigator.of(context).pop();
             },
           );
@@ -205,7 +204,7 @@ class _NotificationsCard extends StatelessWidget {
                 subtitle: Text(provider.notificationsEnabled ? 'Enabled' : 'Disabled'),
                 trailing: Switch(
                   value: provider.notificationsEnabled,
-                  onChanged: (value) => provider.toggleNotifications(),
+                  onChanged: (value) => provider.toggleNotifications(value),
                   activeColor: AppTheme.primaryColor,
                 ),
               ),
@@ -215,7 +214,7 @@ class _NotificationsCard extends StatelessWidget {
                   title: const Text('Budget Alerts'),
                   subtitle: const Text('Notify when approaching budget limit'),
                   value: provider.budgetAlerts,
-                  onChanged: (value) => provider.toggleBudgetAlerts(),
+                  onChanged: (value) => provider.toggleBudgetAlerts(value),
                   activeColor: AppTheme.primaryColor,
                 ),
                 const Divider(height: 1),
@@ -223,7 +222,7 @@ class _NotificationsCard extends StatelessWidget {
                   title: const Text('Receipt Reminders'),
                   subtitle: const Text('Remind to scan receipts daily'),
                   value: provider.receiptReminders,
-                  onChanged: (value) => provider.toggleReceiptReminders(),
+                  onChanged: (value) => provider.toggleReceiptReminders(value),
                   activeColor: AppTheme.primaryColor,
                 ),
               ],

@@ -32,7 +32,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       if (_searchQuery.isNotEmpty) {
         final query = _searchQuery.toLowerCase();
         if (!expense.title.toLowerCase().contains(query) &&
-            !expense.merchant.toLowerCase().contains(query)) {
+            !(expense.merchant?.toLowerCase().contains(query) ?? false)) {
           return false;
         }
       }
